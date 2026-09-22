@@ -1,10 +1,60 @@
+<p align="center"><img src="assets/jk-brand-banner.png" alt="Jeevan Siddhabhaktula — Risk. Governance. AI." width="220"></p>
+
+<div align="center">
+
 # ONE MORE SHIFT
 
-**Live:** [jeevan-0508.github.io/one-more-shift](https://jeevan-0508.github.io/one-more-shift/)
-
-A tiny farewell arcade game: flag or clear real fraud-taxonomy signals against the clock, on your
-last shift. No invented data — every card and every reveal is copied from
+**A tiny farewell arcade game: flag or clear real fraud-taxonomy signals against the clock,
+on your last shift.**
+No invented data — every card and every reveal is copied from
 [freight-fraud-taxonomy](https://github.com/Jeevan-0508/freight-fraud-taxonomy).
+
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-jeevan--0508.github.io-38bdf8?style=for-the-badge)](https://jeevan-0508.github.io/one-more-shift/)
+[![License](https://img.shields.io/badge/License-MIT-22c55e?style=for-the-badge)](LICENSE)
+[![Tests](https://img.shields.io/badge/Tests-24_passing-22c55e?style=for-the-badge)](src/deck.test.js)
+[![Stack](https://img.shields.io/badge/Stack-Vanilla%20JS%20%7C%20Zero%20Deps-818cf8?style=for-the-badge)](#whats-real)
+
+</div>
+
+## How it works
+
+```mermaid
+flowchart TD
+    subgraph SOURCE["Source of truth"]
+        F["freight-fraud-taxonomy
+FFT-001..012 patterns"]
+    end
+
+    subgraph BUILD["Start shift"]
+        D["src/data.js
+108 cards: 77 flag, 31 clear"]
+        RN["src/rng.js
+mulberry32 seed -> shuffle"]
+        DK["src/deck.js
+buildDeck: 30-card shift
+rations the scarce clear pool,
+streak cap ramps 3 -> 2 late-shift"]
+    end
+
+    subgraph PLAY["Every FLAG / CLEAR call"]
+        G["src/game.js
+pure state machine
+answer -> score, streak, accuracy"]
+        UI["src/app.js
+HUD, 60s clock, keyboard F/C"]
+        RES["Results: rank, accuracy,
+best-streak, best score
+(persisted in localStorage)"]
+    end
+
+    F --> D --> DK
+    RN --> DK
+    DK --> G --> UI --> RES
+```
+
+Every card is real. The deck-building and scoring logic are pure functions with no DOM dependency,
+so the entire game loop is unit-tested (24 tests) independent of what's on screen — the DOM layer
+(`src/app.js`) is the only part that isn't.
 
 ## What's real
 
