@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ONE MORE SHIFT</title>
+<meta name="description" content="A tiny farewell arcade game: flag or clear real fraud-taxonomy signals against the clock, on your last shift.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1>ONE MORE SHIFT</h1>
+    <p class="tag">Flag or clear. 60 seconds. Real signals.</p>
+    <p class="sub">108 real cards pulled from 12 fraud-taxonomy patterns &mdash; 77 genuine risk indicators,
+    31 genuine innocent explanations for them. No invented data: every card and every reveal is copied
+    from <a href="https://github.com/Jeevan-0508/freight-fraud-taxonomy">freight-fraud-taxonomy</a>. Built
+    with Aki and Akisa, for the last shift.</p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <section id="intro" class="panel">
+      <p>Every card is either a real risk indicator or a real innocent explanation, straight off an
+      investigator's desk. Press <b>FLAG</b> if it should raise suspicion, <b>CLEAR</b> if it's an
+      innocent explanation. Score climbs faster on a streak &mdash; a wrong call resets it to zero.
+      Deck of 30, clock of 60 seconds, whichever runs out first.</p>
+      <button id="start-btn" class="primary">Start shift</button>
+    </section>
+
+    <section id="play" class="panel" hidden>
+      <div class="hud">
+        <div class="hud-item"><span class="hud-label">Time</span><span id="time">60s</span></div>
+        <div class="hud-item"><span class="hud-label">Score</span><span id="score">0</span></div>
+        <div class="hud-item"><span class="hud-label">Streak</span><span id="streak">0</span></div>
+        <div class="hud-item"><span class="hud-label">Card</span><span id="progress">1 / 30</span></div>
+      </div>
+      <div class="time-track"><div id="time-bar" class="time-fill"></div></div>
+
+      <div class="card">
+        <p class="pattern" id="pattern"></p>
+        <p class="card-text" id="card-text"></p>
+      </div>
+
+      <div class="controls">
+        <button id="flag-btn" class="flag">FLAG <span class="key">F</span></button>
+        <button id="clear-btn" class="clear">CLEAR <span class="key">C</span></button>
+      </div>
+      <p id="feedback" class="feedback"></p>
+    </section>
+
+    <section id="results" class="panel" hidden>
+      <p class="rank" id="rank"></p>
+      <div class="stats">
+        <div class="stat"><span class="stat-label">Score</span><span id="final-score"></span></div>
+        <div class="stat"><span class="stat-label">Accuracy</span><span id="final-accuracy"></span></div>
+        <div class="stat"><span class="stat-label">Best streak</span><span id="final-streak"></span></div>
+        <div class="stat"><span class="stat-label">Calls</span><span id="final-calls"></span></div>
+      </div>
+      <button id="again-btn" class="primary">Run it again</button>
+    </section>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Deck-building logic: <a href="https://github.com/Jeevan-0508/one-more-shift/blob/main/src/deck.js">src/deck.js</a>,
+    game state: <a href="https://github.com/Jeevan-0508/one-more-shift/blob/main/src/game.js">src/game.js</a>,
+    22 tests. No dependencies, no tracking, no server. <a href="https://github.com/Jeevan-0508/one-more-shift">Source</a>.</p>
+  </div>
+</footer>
+
+<script src="src/data.js"></script>
+<script src="src/rng.js"></script>
+<script src="src/deck.js"></script>
+<script src="src/game.js"></script>
+<script src="src/app.js"></script>
+</body>
+</html>

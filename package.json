@@ -1,0 +1,10 @@
+{
+  "name": "one-more-shift",
+  "private": true,
+  "version": "0.1.0",
+  "license": "MIT",
+  "description": "A tiny farewell arcade game: flag or clear real fraud-taxonomy signals against the clock, on your last shift.",
+  "scripts": {
+    "test": "bun test"
+  }
+}
