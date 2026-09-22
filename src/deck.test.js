@@ -57,3 +57,22 @@ describe('buildDeck', function () {
     expect(d1.map(function (c) { return c.id; })).toEqual(d2.map(function (c) { return c.id; }));
   });
 });
+
+describe('buildDeck with a difficulty ramp', function () {
+  test('maxStreak as a function tightens the cap partway through the deck', function () {
+    var cards = makeCards(70, 15);
+    var deck = buildDeck(cards, 24, mulberry32(7), function (pos) { return pos < 12 ? 3 : 2; });
+    var streak = 1;
+    for (var i = 1; i < deck.length; i++) {
+      if (deck[i].type === deck[i - 1].type) streak++;
+      else streak = 1;
+      var cap = i < 12 ? 3 : 2;
+      expect(streak).toBeLessThanOrEqual(cap);
+    }
+  });
+
+  test('a plain number still works exactly as before (backward compatible)', function () {
+    var deck = buildDeck(makeCards(70, 10), 24, mulberry32(3), 3);
+    expect(deck.length).toBe(24);
+  });
+});

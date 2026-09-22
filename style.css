@@ -65,3 +65,6 @@ footer p{margin:0;font-size:12px;color:var(--faint)}
 footer a{color:var(--faint)}
 
 @media(max-width:600px){.wrap{padding:0 16px}.stats{grid-template-columns:1fr 1fr}}
+.best-line{margin:10px 0 0;font-size:13px;color:var(--dim)}
+.best-line b{color:var(--accent);font-family:ui-monospace,Menlo,monospace}
+.new-best{color:var(--good);font-weight:600}

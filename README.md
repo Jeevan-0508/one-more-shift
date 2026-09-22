@@ -16,12 +16,15 @@ last shift. No invented data — every card and every reveal is copied from
   streak of the same answer type can run. Clears are the scarcer of the two card types (31 of 108),
   so they're rationed: only spent when a streak actually needs breaking, never "for variety" — a
   version that spent them opportunistically could burn through the clear pool early and leave
-  nothing to break a later flag streak. 6 tests cover pool exhaustion, streak-cap enforcement, and
-  determinism.
+  nothing to break a later flag streak. The cap itself can ramp: the last third of a shift tightens
+  from 3-in-a-row to 2, so the game gets measurably harder as the clock runs down, not just longer.
+  8 tests cover pool exhaustion, streak-cap enforcement, the ramp, and determinism.
 - **`src/game.js`** — pure state machine (`createGame` / `answer` / `accuracy` / `rank`), no DOM.
   Correct calls score points with a streak bonus; a wrong call resets the streak to zero. 10 tests.
 - **`src/rng.js`** — seeded mulberry32 PRNG + Fisher-Yates shuffle, so a deck is reproducible from
   its seed without pulling in a library. 6 tests.
+- **Best score** persists in `localStorage` across shifts on this browser (`oms_best_score`), shown
+  on the intro screen and called out with a "new best" badge on the results screen when it's beaten.
 
 ## Run it
 
@@ -29,11 +32,10 @@ Open `index.html` directly, no server needed — every script is a plain `<scrip
 or a `fetch()` call, so this works double-clicked from disk exactly like it does on GitHub Pages.
 
 ```
-bun test        # 22 tests
+bun test        # 24 tests
 ```
 
 ## Not yet done
 
 - A leaderboard (would need a backend or a BYOK-style bring-your-own-storage pattern; deliberately
-  left local-only, one shift at a time).
-- Difficulty ramp (deck currently draws at a flat ~75/25 flag/clear ratio for the whole shift).
+  left local-only, one shift at a time — the best score above is the local version of this).

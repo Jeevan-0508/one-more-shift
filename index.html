@@ -27,7 +27,9 @@
       <p>Every card is either a real risk indicator or a real innocent explanation, straight off an
       investigator's desk. Press <b>FLAG</b> if it should raise suspicion, <b>CLEAR</b> if it's an
       innocent explanation. Score climbs faster on a streak &mdash; a wrong call resets it to zero.
-      Deck of 30, clock of 60 seconds, whichever runs out first.</p>
+      Deck of 30, clock of 60 seconds, whichever runs out first. The last third of the deck tightens
+      the pace &mdash; fewer cards in a row before the type switches.</p>
+      <p class="best-line">Best score so far: <b id="intro-best">0</b></p>
       <button id="start-btn" class="primary">Start shift</button>
     </section>
 
@@ -60,6 +62,7 @@
         <div class="stat"><span class="stat-label">Best streak</span><span id="final-streak"></span></div>
         <div class="stat"><span class="stat-label">Calls</span><span id="final-calls"></span></div>
       </div>
+      <p class="best-line">Best score: <b id="best-score">0</b> <span id="new-best" class="new-best" hidden>&mdash; new best!</span></p>
       <button id="again-btn" class="primary">Run it again</button>
     </section>
 

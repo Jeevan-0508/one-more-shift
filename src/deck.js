@@ -6,8 +6,14 @@
 (function (global) {
   var RNG = (typeof module !== 'undefined' && module.exports) ? require('./rng.js') : global.RNG;
 
+  /**
+   * maxStreak may be a fixed number, or a function(position) -> number so a deck can ramp up
+   * difficulty (a tighter cap forces more frequent switching) partway through a shift without
+   * touching the pacing logic itself.
+   */
   function buildDeck(cards, size, rand, maxStreak) {
     maxStreak = maxStreak || 3;
+    var capFn = typeof maxStreak === 'function' ? maxStreak : function () { return maxStreak; };
     var flags = RNG.shuffle(cards.filter(function (c) { return c.type === 'flag'; }), rand);
     var clears = RNG.shuffle(cards.filter(function (c) { return c.type === 'clear'; }), rand);
 
@@ -15,8 +21,9 @@
     var fi = 0, ci = 0, streak = 0, lastType = null;
 
     while (deck.length < size && (fi < flags.length || ci < clears.length)) {
-      var forceClear = lastType === 'flag' && streak >= maxStreak && ci < clears.length;
-      var forceFlag = lastType === 'clear' && streak >= maxStreak && fi < flags.length;
+      var cap = capFn(deck.length);
+      var forceClear = lastType === 'flag' && streak >= cap && ci < clears.length;
+      var forceFlag = lastType === 'clear' && streak >= cap && fi < flags.length;
       var takeFlag;
 
       if (forceClear) takeFlag = false;
